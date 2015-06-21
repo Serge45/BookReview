@@ -6,9 +6,9 @@ from model import User, Book, BookReview
 from modelview import UserView
 
 if __name__ == '__main__':
-    db.drop_all()
-    db.create_all()
-    admin.add_view(UserView(db.session))
+    #db.drop_all()
+    #db.create_all()
+    admin.add_view(UserView(User, db.session))
     admin.add_view(ModelView(Book, db.session))
     admin.add_view(ModelView(BookReview, db.session))
     app.run("0.0.0.0", debug=True)

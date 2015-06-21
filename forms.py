@@ -9,7 +9,7 @@ class LoginForm(form.Form):
     login = fields.TextField(validators=[validators.required()])
     password = fields.PasswordField(validators=[validators.required()])
 
-    def validate_login(self, field):
+    def validate_login(self):
         user = self.get_user()
 
         if user is None:
@@ -17,6 +17,8 @@ class LoginForm(form.Form):
 
         if not check_password_hash(user.password, self.password.data):
             raise validators.ValidationError('Invalid password')
+
+        return True
 
     def get_user(self):
         return db.session.query(User).filter_by(username=self.login.data).first()

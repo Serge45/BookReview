@@ -36,6 +36,7 @@ class User(db.Model):
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.Unicode(64))
+    author = db.Column(db.Unicode(32))
     isbn = db.Column(db.String(16), unique=True)
     publish_date = db.Column(db.Date)
     edition = db.Column(db.Integer)
