@@ -27,7 +27,7 @@ class BackendAdminIndexView(admin.AdminIndexView):
     def index(self):
         if not login.current_user.is_authenticated():
             return redirect(url_for('.login_view'))
-        return super(BackendAdminIndexView, self).inedx()
+        return super(BackendAdminIndexView, self).index()
 
     @expose('/login/', methods=('GET', 'POST'))
     def login_view(self):
@@ -38,7 +38,6 @@ class BackendAdminIndexView(admin.AdminIndexView):
             login.login_user(user)
 
         if login.current_user.is_authenticated():
-            'Authed'
             return redirect(url_for('.index'))
 
         return render_template("login.html", form=form)
