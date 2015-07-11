@@ -6,17 +6,27 @@ from wtforms import PasswordField
 from flask.ext import login, admin
 from flask.ext.admin import expose, helpers
 from forms import LoginForm
+from werkzeug.security import generate_password_hash
 
 class AuthModelView(ModelView):
     def is_accessible(self):
         return login.current_user.is_authenticated()
 
 class UserView(AuthModelView):
+    can_delete = False
     column_list = ("username", "email")
+    form_widget_args = {
+        'username' : {
+            'readonly' : True
+        }
+    }
 
     form_extra_fields = {
-        'password': PasswordField('Password')
+        'password': PasswordField('Password'),
     }
+
+    def on_model_change(self, form, user, is_created):
+        user.password = generate_password_hash(form.password.data)
 
     def __init__(self, type_name, session, **kwargs):
         super(UserView, self).__init__(type_name, session, **kwargs)
