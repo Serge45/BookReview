@@ -6,8 +6,8 @@ from bookreview import db
 from model import User
 
 class LoginForm(form.Form):
-    login = fields.TextField(validators=[validators.required()])
-    password = fields.PasswordField(validators=[validators.required()])
+    login = fields.TextField(validators=[validators.required(),])
+    password = fields.PasswordField(validators=[validators.required(),])
 
     def validate_login(self):
         user = self.get_user()

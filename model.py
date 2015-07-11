@@ -40,6 +40,7 @@ class Book(db.Model):
     isbn = db.Column(db.String(16), unique=True)
     publish_date = db.Column(db.Date)
     edition = db.Column(db.Integer)
+    reviews = db.relationship("BookReview", backref="book", lazy="dynamic")
 
     def __init__(self, title="", isbn="", publish_date=datetime.now()):
         self.title = title
@@ -52,3 +53,4 @@ class Book(db.Model):
 class BookReview(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     review = db.Column(db.UnicodeText)
+    book_id = db.Column(db.Integer, db.ForeignKey("book.id"))
