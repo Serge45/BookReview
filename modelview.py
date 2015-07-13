@@ -46,8 +46,12 @@ class BackendAdminIndexView(admin.AdminIndexView):
         if form.validate_login():
             user = form.get_user()
             login.login_user(user)
+            next = flask.request.args.get('next')
+
+            if not next_is_valid(next):
+                return flask.abort(400)
 
         if login.current_user.is_authenticated():
-            return redirect(url_for('.index'))
+            return redirect(next or url_for('.index'))
 
         return render_template("login.html", form=form)

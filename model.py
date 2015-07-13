@@ -9,6 +9,7 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(30))
     password = db.Column(db.String(128))
+    reviews = db.relationship("BookReview", backref="user", lazy="dynamic")
 
     def __init__(self, name="", mail="", plain_password=""):
         self.username = name
@@ -54,3 +55,4 @@ class BookReview(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     review = db.Column(db.UnicodeText)
     book_id = db.Column(db.Integer, db.ForeignKey("book.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))

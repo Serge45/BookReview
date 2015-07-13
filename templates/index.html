@@ -1,0 +1,12 @@
+{% for r in reviews %}
+    <div class="booktitle"> 
+        {{ r.book.title }}
+    </div>
+    <div class="bookreview"> 
+        {{ r.review }}
+    </div>
+    <div class="usertag">
+        {{ r.user.username }}
+    </div>
+
+{% endfor %}
