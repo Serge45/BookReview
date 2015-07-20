@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask.ext.admin.contrib.sqla import ModelView 
-from flask import redirect, url_for, request, render_template
+from flask import redirect, url_for, request, render_template, abort
 from wtforms import PasswordField
 from flask.ext import login, admin
 from flask.ext.admin import expose, helpers
@@ -46,10 +46,11 @@ class BackendAdminIndexView(admin.AdminIndexView):
         if form.validate_login():
             user = form.get_user()
             login.login_user(user)
-            next = flask.request.args.get('next')
+            next = request.args.get('next')
 
-            if not next_is_valid(next):
-                return flask.abort(400)
+            if next:
+                if next != url_for('.index'):
+                    return abort(400)
 
         if login.current_user.is_authenticated():
             return redirect(next or url_for('.index'))

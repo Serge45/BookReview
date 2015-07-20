@@ -49,7 +49,7 @@ class Book(db.Model):
         self.publish_date = publish_date
 
     def __repr__(self):
-        return '<Book> {0}'.format(self.title)
+        return self.title
 
 class BookReview(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

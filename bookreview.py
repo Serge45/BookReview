@@ -5,7 +5,7 @@ from flask_admin import Admin
 from flask.ext import login
 from flask.ext.sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SECRET_KEY'] = 'sdghir035nvawihegovnv0-64y jioj'
 

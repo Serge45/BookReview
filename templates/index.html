@@ -1,12 +1,17 @@
+{% extends "base.html" %}
+
+{% block body %}
 {% for r in reviews %}
-    <div class="booktitle"> 
+<div class="post_block">
+    <h3 class="book_title"> 
         {{ r.book.title }}
+    </h3>
+    <div class="book_review"> 
+        <p>{{ r.review }}</p>
     </div>
-    <div class="bookreview"> 
-        {{ r.review }}
-    </div>
-    <div class="usertag">
+    <div class="user_tag">
         {{ r.user.username }}
     </div>
-
+</div>
 {% endfor %}
+{% endblock %}
