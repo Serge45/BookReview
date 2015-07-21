@@ -2,6 +2,8 @@
 
 {% block body %}
 {% for r in reviews %}
+
+{% if not r.is_draft %}
 <div class="post_block">
     <h3 class="book_title"> 
         {{ r.book.title }}
@@ -13,5 +15,6 @@
         {{ r.user.username }}
     </div>
 </div>
+{% endif %}
 {% endfor %}
 {% endblock %}

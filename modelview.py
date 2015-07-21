@@ -7,6 +7,7 @@ from flask.ext import login, admin
 from flask.ext.admin import expose, helpers
 from forms import LoginForm
 from werkzeug.security import generate_password_hash
+from slugify import slugify
 
 class AuthModelView(ModelView):
     def is_accessible(self):
@@ -30,6 +31,19 @@ class UserView(AuthModelView):
 
     def __init__(self, type_name, session, **kwargs):
         super(UserView, self).__init__(type_name, session, **kwargs)
+
+class ReviewView(AuthModelView):
+    form_widget_args = {
+        'slug' : {
+            'readonly' : True
+        }
+    }
+
+    def on_model_change(self, form, review, is_created):
+        review.slug = slugify(form.review.data, max_length=64)
+
+    def __init__(self, type_name, session, **kwargs):
+        super(ReviewView, self).__init__(type_name, session, **kwargs)
 
 class BackendAdminIndexView(admin.AdminIndexView):
 

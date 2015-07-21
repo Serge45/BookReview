@@ -51,8 +51,22 @@ class Book(db.Model):
     def __repr__(self):
         return self.title
 
+    def __unicode__(self):
+        return self.title
+
 class BookReview(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    review_date = db.Column(db.Date)
     review = db.Column(db.UnicodeText)
     book_id = db.Column(db.Integer, db.ForeignKey("book.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    slug = db.Column(db.Unicode(64), unique=True)
+    is_draft = db.Column(db.Boolean)
+
+    def __repr__(self):
+        return "Review for {0} by {1}".format(db.session.query(Book) \
+            .filter_by(id=self.book_id).first(), \
+            unicode(db.session.query(User).filter_by(id=self.user_id).first()))
+
+    def __init__(self):
+        is_draft = False
