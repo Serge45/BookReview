@@ -16,9 +16,6 @@ class User(db.Model):
         self.email = mail
         self.password = generate_password_hash(plain_password)
 
-    def __repr__(self):
-        return '<User> {0}'.format(self.username)
-
     def is_authenticated(self):
         return True
 
@@ -30,6 +27,9 @@ class User(db.Model):
 
     def get_id(self):
         return self.id
+
+    def __repr__(self):
+        return '<User> {0}'.format(self.username)
 
     def __unicode__(self):
         return self.username
@@ -64,9 +64,9 @@ class BookReview(db.Model):
     is_draft = db.Column(db.Boolean)
 
     def __repr__(self):
-        return "Review for {0} by {1}".format(db.session.query(Book) \
+        return "Review for {0} written by {1}".format(db.session.query(Book) \
             .filter_by(id=self.book_id).first(), \
             unicode(db.session.query(User).filter_by(id=self.user_id).first()))
 
     def __init__(self):
-        is_draft = False
+        self.is_draft = False

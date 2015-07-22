@@ -25,6 +25,9 @@ def index():
     reviews = db.session.query(BookReview).all()
     return render_template("index.html", reviews=reviews)
 
+@app.route('/<user>/<slug>/'):
+    pass
+
 from modelview import BackendAdminIndexView
 
 admin = Admin(app, 'Book review admin site', index_view=BackendAdminIndexView())
