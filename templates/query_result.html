@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div>
+    <p>Review written by {{username}}</p>
+</div>
+{% for review in result %}
+    <a href="{{url_for('review', user_id=user_id, slug_id=review.id)}}">
+        {{review}}
+    </a>
+{% endfor %}
+
+{% endblock %}
